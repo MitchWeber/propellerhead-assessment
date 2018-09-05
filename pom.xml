@@ -20,11 +20,10 @@
 	</properties>
 
 	<modules>
-		<module>propellerhead-assessment-backend</module>
 		<module>propellerhead-assessment-frontend</module>
+		<module>propellerhead-assessment-backend</module>
 	</modules>
 
-<!--
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -33,7 +32,7 @@
 				<version>${project.version}</version>
 			</dependency>
 		</dependencies>
-	</dependencyManagement> -->
+	</dependencyManagement>
 
 
 </project>
