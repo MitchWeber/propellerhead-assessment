@@ -11,10 +11,6 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.github.mitchweber</groupId>
-			<artifactId>propellerhead-assessment-frontend</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
