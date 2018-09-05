@@ -24,7 +24,6 @@
 		<module>propellerhead-assessment-backend</module>
 	</modules>
 
-
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -34,5 +33,6 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+
 
 </project>

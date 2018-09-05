@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	<changeSet id="create-customer-id-sequence" author="michael.weber">
+		<createSequence sequenceName="CUSTOMER_ID_SEQ"
+			startValue="1000" incrementBy="1" />
+	</changeSet>
+	<changeSet id="create-customer-table" author="michael.weber">
+		<createTable tableName="CUSTOMER">
+			<column name="ID" type="NUMBER(13)" defaultValueComputed="CUSTOMER_ID_SEQ.NEXTVAL">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="NAME" type="varchar2(255)" />
+			<column name="CREATED" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP" />
+			<column name="STATUS" type="varchar2(255)" defaultValue="NON_ACTIVE" />
+			<column name="MOBILE_NUMBER" type="varchar2(255)" />
+			<column name="TELEFONE_NUMBER" type="varchar2(255)" />
+			<column name="EMAIL" type="varchar2(255)" />
+		</createTable>
+	</changeSet>
+
+	<changeSet id="create-note-id-sequence" author="michael.weber">
+		<createSequence sequenceName="NOTE_ID_SEQ" startValue="1000" incrementBy="2" />
+	</changeSet>
+
+	<changeSet id="create-table-note" author="michael.weber">
+		<createTable tableName="NOTE">
+			<column name="ID" type="NUMBER(13)" defaultValueComputed="NOTE_ID_SEQ.NEXTVAL">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="CUSTOMER_ID" type="NUMBER(13)">
+				<constraints nullable="false" foreignKeyName="NOTE_CUSTOMER_FK"/>
+			</column>
+			<column name="CREATED" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP" />
+			<column name="MODIFIED" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP" />
+			<column name="CONTENT" type="varchar2(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet id="imsert-dummy-data" author="michael.weber">
+		<sql>
+			INSERT INTO CUSTOMER (NAME) VALUES ('Tom Soyer');
+			INSERT INTO CUSTOMER (NAME) VALUES ('Lucky Luck');
+			INSERT INTO CUSTOMER (NAME) VALUES ('Angela Merkel');
+			INSERT INTO CUSTOMER (NAME) VALUES ('Martin Suter');
+			INSERT INTO CUSTOMER (NAME) VALUES ('Eric Rease');
+			INSERT INTO CUSTOMER (NAME) VALUES ('Dan Brown');
+			INSERT INTO CUSTOMER (NAME) VALUES ('Frank Underwood');
+		</sql>
+	</changeSet>
+
+
+</databaseChangeLog>
