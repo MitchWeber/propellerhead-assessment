@@ -13,31 +13,31 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import axios from 'axios';
-import CustomerExcerpt from '../model/CustomerExcerpt';
+import { Component, Vue } from "vue-property-decorator";
+import axios from "axios";
+import CustomerExcerpt from "../model/CustomerExcerpt";
 
 @Component
 export default class CustomerOverviewView extends Vue {
-  customers: Array<CustomerExcerpt> = []
+  customers: Array<CustomerExcerpt> = [];
 
   get getCustomers() {
     return this.customers;
   }
 
   created() {
-    axios.get('http://localhost:8080/rest/customer/all').then((response) => {
-      response.data.forEach((element: CustomerExcerpt) => {
-        this.customers.push(element);
-      });
-    }).catch((e) => {
-
-    });
+    axios
+      .get("http://localhost:8080/rest/customer/all")
+      .then(response => {
+        response.data.forEach((element: CustomerExcerpt) => {
+          this.customers.push(element);
+        });
+      })
+      .catch(e => {});
   }
 }
 </script>
 
 
 <style scoped>
-
 </style>
