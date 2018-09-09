@@ -22,7 +22,9 @@
                     <el-input v-model="customer.id" disabled="disabled"></el-input>
                   </el-form-item>
                   <el-form-item label="Created">
-                      <el-date-picker v-model="customer.created" type="datetime" disabled="disabled"></el-date-picker>
+                      <el-date-picker v-model="customer.created"
+                                      type="datetime"
+                                      disabled="disabled"></el-date-picker>
                   </el-form-item>
                   <el-form-item label="Status">
                     <el-select v-model="customer.status">
@@ -89,19 +91,17 @@
           </el-card>
         </el-col>
       </el-row>
-
-
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
-import axios from 'axios';
-import CustomerDetails from '../model/CustomerDetails';
-import Note from '../model/Note';
-import { CustomerStatus } from '../model/CustomerStatus';
-import { Notification } from 'element-ui';
+import { Component, Prop, Vue } from "vue-property-decorator";
+import axios from "axios";
+import { Notification } from "element-ui";
+import CustomerDetails from "../model/CustomerDetails";
+import Note from "../model/Note";
+import { CustomerStatus } from "../model/CustomerStatus";
 
 @Component
 export default class CustomerDetailsView extends Vue {
@@ -111,19 +111,24 @@ export default class CustomerDetailsView extends Vue {
   customerStatus: Array<string> = Object.keys(CustomerStatus);
 
   saveCustomerDetails() {
-    axios.post(`http://localhost:8080/rest/customer/${this.$route.params.id}`, this.customer)
-      .then((response) => {
-        this.notifySuccess('Saved');
-      }).catch((e) => {
-        console.error(e);
-        this.notifyError("Error", 'Something went wrong')
+    axios
+      .post(
+        `http://localhost:8080/rest/customer/${this.$route.params.id}`,
+        this.customer
+      )
+      .then(response => {
+        this.notifySuccess("Saved");
+      })
+      .catch(e => {
+        this.notifyError("Error", "Something went wrong");
       });
   }
 
   fetchData() {
     this.loading = true;
-    axios.get(`http://localhost:8080/rest/customer/${this.$route.params.id}`)
-      .then((response) => {
+    axios
+      .get(`http://localhost:8080/rest/customer/${this.$route.params.id}`)
+      .then(response => {
         const c: CustomerDetails = new CustomerDetails();
         c.id = response.data.id;
         c.name = response.data.name;
@@ -132,64 +137,65 @@ export default class CustomerDetailsView extends Vue {
         c.mobileNumber = response.data.mobileNumber;
         c.telefoneNumber = response.data.telefoneNumber;
         c.email = response.data.email;
-        response.data.notes.forEach((element: Note) => {
-          const n = new Note();
-          n.id = element.id;
-          n.content = element.content;
-          n.createdDate = element.createdDate;
-          n.modifiedDate = element.modifiedDate;
-          c.notes.push(n);
+        response.data.notes.forEach((note: Note) => {
+          c.notes.push(note);
         });
         this.customer = c;
         this.loading = false;
-      }).catch((e) => {
+      })
+      .catch(e => {
         this.loading = false;
-        console.error(e);
-        this.notifyError("Error", 'Something went wrong')
+        this.notifyError("Error", "Something went wrong");
       });
   }
 
   addNote() {
-    axios.post(`http://localhost:8080/rest/customer/${this.$route.params.id}/note`, this.emptyNote)
-      .then((response) => {
+    axios
+      .post(
+        `http://localhost:8080/rest/customer/${this.$route.params.id}/note`,
+        this.emptyNote
+      )
+      .then(response => {
         this.emptyNote = new Note();
-        const n = new Note();
-        n.id = response.data.id;
-        n.content = response.data.content;
-        n.createdDate = response.data.createdDate;
-        n.modifiedDate = response.data.modifiedDate;
-        this.customer.notes.push(n);
-        this.notifySuccess("New note added")
-      }).catch((e) => {
-        console.error(e);
-        this.notifyError("Error", 'Something went wrong')
+        const note: Note = response.data;
+        this.customer.notes.push(note);
+        this.notifySuccess("New note added");
+      })
+      .catch(e => {
+        this.notifyError("Error", "Something went wrong");
       });
   }
 
-  notifySuccess(title: string, message: string = '') {
+  notifySuccess(title: string, message: string = "") {
     this.$notify({
-      title: title,
-      message: message,
-      type: 'success',
+      title,
+      message,
+      type: "success"
     });
   }
 
-  notifyError(title: string, message: string = '') {
+  notifyError(title: string, message: string = "") {
     this.$notify({
-      title: title,
-      message: message,
-      type: 'error',
+      title,
+      message,
+      type: "error"
     });
   }
 
   editNote(note: Note) {
-    axios.post(`http://localhost:8080/rest/customer/${this.$route.params.id}/note/${note.id}`, note)
-      .then((response) => {
+    axios
+      .post(
+        `http://localhost:8080/rest/customer/${this.$route.params.id}/note/${
+          note.id
+        }`,
+        note
+      )
+      .then(response => {
         note.modifiedDate = response.data.modifiedDate;
-        this.notifySuccess("Saved")
-      }).catch((e) => {
-        console.error(e);
-        this.notifyError("Error", 'Something went wrong')
+        this.notifySuccess("Saved");
+      })
+      .catch(e => {
+        this.notifyError("Error", "Something went wrong");
       });
   }
 
@@ -201,15 +207,15 @@ export default class CustomerDetailsView extends Vue {
 
 
 <style scoped>
-  .noteInfo {
-    font-size: 0.8rem;
-    text-align: right;
-  }
-  .noteInfo span {
-    margin-right: 0.5em;
-  }
+.noteInfo {
+  font-size: 0.8rem;
+  text-align: right;
+}
+.noteInfo span {
+  margin-right: 0.5em;
+}
 
-  .el-row {
-    margin-bottom: 1.3em;
-  }
+.el-row {
+  margin-bottom: 1.3em;
+}
 </style>

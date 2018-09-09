@@ -36,7 +36,7 @@ public class CustomerService {
 
     @Transactional
     public Customer updateCustomer(CustomerDetails customerDetails) {
-        Customer customer = customerRepository.findById(customerDetails.getId()).orElseThrow(EntityNotFoundException::new);
+        Customer customer = getCustomer(customerDetails.getId());
         customer.setEmail(customerDetails.getEmail());
         customer.setMobileNumber(customerDetails.getMobileNumber());
         customer.setStatus(customerDetails.getStatus());

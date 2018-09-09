@@ -15,7 +15,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import axios from 'axios';
-import CustomerExcerpt from "../model/CustomerExcerpt";
+import CustomerExcerpt from '../model/CustomerExcerpt';
 
 @Component
 export default class CustomerOverviewView extends Vue {
@@ -31,7 +31,7 @@ export default class CustomerOverviewView extends Vue {
         this.customers.push(element);
       });
     }).catch((e) => {
-      console.error(e);
+
     });
   }
 }
