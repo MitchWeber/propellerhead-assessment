@@ -157,7 +157,7 @@ export default class CustomerDetailsView extends Vue {
         const n = new Note();
         n.id = response.data.id;
         n.content = response.data.content;
-        n.createdDate = response.data.creationDate;
+        n.createdDate = response.data.createdDate;
         n.modifiedDate = response.data.modifiedDate;
         this.customer.notes.push(n);
         this.$notify({

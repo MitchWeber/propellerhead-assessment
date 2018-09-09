@@ -23,32 +23,16 @@ public class CustomerExcerpt {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public OffsetDateTime getCreated() {
         return created;
     }
 
-    public void setCreated(OffsetDateTime created) {
-        this.created = created;
-    }
-
     public CustomerStatus getStatus() {
         return status;
-    }
-
-    public void setStatus(CustomerStatus status) {
-        this.status = status;
     }
 
 }

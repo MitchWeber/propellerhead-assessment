@@ -48,15 +48,18 @@ public class CustomerRestController {
     }
 
     @PostMapping("/{customerId}/note")
-    public NoteDetails addNote(@PathVariable Long customerId, @RequestBody Note newNote) {
-        Note note = customerService.addNote(customerId, newNote);
+    public NoteDetails addNote(@PathVariable Long customerId, @RequestBody NoteDetails noteDetails) {
+        Note note = customerService.addNote(customerId, noteDetails);
         return new NoteDetails(note);
     }
 
     @PostMapping("/{customerId}/note/{noteId}")
-    public Note editNote(@PathVariable("customerId") Long customerId, @PathVariable("noteId") Long noteId, @RequestBody Note newNote) {
-        Note existingNote = customerService.editNote(customerId, newNote);
-        existingNote.edit(newNote.getContent());
+    public Note editNote(
+            @PathVariable("customerId") Long customerId,
+            @PathVariable("noteId") Long noteId,
+            @RequestBody NoteDetails noteDetails) {
+        Note existingNote = customerService.editNote(customerId, noteDetails);
+        existingNote.edit(noteDetails.getContent());
         return existingNote;
     }
 }

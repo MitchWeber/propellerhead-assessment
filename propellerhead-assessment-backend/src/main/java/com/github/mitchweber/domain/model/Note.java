@@ -15,14 +15,14 @@ public class Note {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "NOTE_ID_SEQ")
     @SequenceGenerator(name = "NOTE_ID_SEQ", sequenceName = "NOTE_ID_SEQ")
     private Long id;
-    private OffsetDateTime creationDate;
-    private OffsetDateTime modifiedDate;
+    private OffsetDateTime created;
+    private OffsetDateTime modified;
     private String content;
 
     public Note(String content) {
         this.content = content;
-        this.creationDate = OffsetDateTime.now();
-        this.modifiedDate = OffsetDateTime.now();
+        this.created = OffsetDateTime.now();
+        this.modified = OffsetDateTime.now();
     }
 
     Note() {
@@ -38,11 +38,11 @@ public class Note {
     }
 
     public OffsetDateTime getCreationDate() {
-        return creationDate;
+        return created;
     }
 
     public OffsetDateTime getModifiedDate() {
-        return modifiedDate;
+        return modified;
     }
 
     public String getContent() {
@@ -50,7 +50,7 @@ public class Note {
     }
 
     public void edit(String newContent) {
-        this.modifiedDate = OffsetDateTime.now();
+        this.modified = OffsetDateTime.now();
         this.content = newContent;
     }
 

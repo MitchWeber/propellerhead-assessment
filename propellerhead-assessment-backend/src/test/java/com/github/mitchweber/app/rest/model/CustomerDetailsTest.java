@@ -30,6 +30,8 @@ public class CustomerDetailsTest {
         assertThat(customerDetails.getName(), is(customer.getName()));
         assertThat(customerDetails.getStatus(), is(customer.getStatus()));
         assertThat(customerDetails.getTelefoneNumber(), is(customer.getTelefoneNumber()));
+        assertThat(customerDetails.getNotes().size(), is(customer.getNotes().size()));
+        assertThat(customerDetails.getNotes().get(0).getContent(), is(customer.getNotes().get(0).getContent()));
     }
 
 }

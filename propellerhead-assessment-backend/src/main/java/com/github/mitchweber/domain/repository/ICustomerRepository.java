@@ -4,11 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
-import org.springframework.data.repository.Repository;
+import org.springframework.data.repository.RepositoryDefinition;
 
 import com.github.mitchweber.domain.model.Customer;
 
-public interface ICustomerRepository extends Repository<Customer, Long>, QuerydslPredicateExecutor<Customer> {
+@RepositoryDefinition(domainClass = Customer.class, idClass = Long.class)
+public interface ICustomerRepository extends QuerydslPredicateExecutor<Customer> {
 
     List<Customer> findAll();
 
