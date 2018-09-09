@@ -27,9 +27,8 @@ export default class CustomerOverviewView extends Vue {
 
   created() {
     axios.get('http://localhost:8080/rest/customer/all').then((response) => {
-      
-      response.data.forEach(element => {
-        this.customers.push(new CustomerExcerpt(element.id, element.name, element.status, element.created));
+      response.data.forEach((element: CustomerExcerpt) => {
+        this.customers.push(element);
       });
     }).catch((e) => {
       console.error(e);

@@ -101,6 +101,7 @@ import axios from 'axios';
 import CustomerDetails from '../model/CustomerDetails';
 import Note from '../model/Note';
 import { CustomerStatus } from '../model/CustomerStatus';
+import { Notification } from 'element-ui';
 
 @Component
 export default class CustomerDetailsView extends Vue {
@@ -112,13 +113,10 @@ export default class CustomerDetailsView extends Vue {
   saveCustomerDetails() {
     axios.post(`http://localhost:8080/rest/customer/${this.$route.params.id}`, this.customer)
       .then((response) => {
-        this.$notify({
-          title: 'Saved',
-          message: '',
-          type: 'success',
-        });
+        this.notifySuccess('Saved');
       }).catch((e) => {
         console.error(e);
+        this.notifyError("Error", 'Something went wrong')
       });
   }
 
@@ -147,6 +145,7 @@ export default class CustomerDetailsView extends Vue {
       }).catch((e) => {
         this.loading = false;
         console.error(e);
+        this.notifyError("Error", 'Something went wrong')
       });
   }
 
@@ -160,32 +159,37 @@ export default class CustomerDetailsView extends Vue {
         n.createdDate = response.data.createdDate;
         n.modifiedDate = response.data.modifiedDate;
         this.customer.notes.push(n);
-        this.$notify({
-          title: 'New note added',
-          message: '',
-          type: 'success',
-        });
+        this.notifySuccess("New note added")
       }).catch((e) => {
         console.error(e);
+        this.notifyError("Error", 'Something went wrong')
       });
+  }
+
+  notifySuccess(title: string, message: string = '') {
+    this.$notify({
+      title: title,
+      message: message,
+      type: 'success',
+    });
+  }
+
+  notifyError(title: string, message: string = '') {
+    this.$notify({
+      title: title,
+      message: message,
+      type: 'error',
+    });
   }
 
   editNote(note: Note) {
     axios.post(`http://localhost:8080/rest/customer/${this.$route.params.id}/note/${note.id}`, note)
       .then((response) => {
         note.modifiedDate = response.data.modifiedDate;
-        this.$notify({
-          title: 'Saved',
-          message: '',
-          type: 'success',
-        });
+        this.notifySuccess("Saved")
       }).catch((e) => {
         console.error(e);
-        this.$notify({
-          title: 'Error',
-          message: 'Something went wrong.',
-          type: 'error',
-        });
+        this.notifyError("Error", 'Something went wrong')
       });
   }
 
