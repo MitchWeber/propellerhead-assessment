@@ -1,0 +1,11 @@
+---
+spring:
+  jpa:
+    database: H2
+    show-sql: true
+    hibernate.ddl-auto: none
+  
+  datasource:
+    url: jdbc:h2:file:./db;AUTO_SERVER=true
+  
+  liquibase.change-log: classpath:/db/changelog/db.changelog-master.xml

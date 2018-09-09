@@ -1,31 +1,52 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <header>
+      <div>Propellerhead Technical Assessment</div>
+      <router-link to="/">Overview</router-link>
+    </header>
+    <main>
+        <router-view></router-view>
+    </main>
+    <footer>
+        &copy; Michael Weber
+    </footer>
   </div>
 </template>
+
+<script>
+import CustomerOverviewView from './views/CustomerOverviewView.vue';
+
+export default {
+  name: 'app',
+  components: {
+    CustomerOverviewView,
+  },
+};
+</script>
 
 <style>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: #2c3e50;
+}
+
+header {
+  background-color: #d3d3d3;
+  text-align: left;
+  height: 5em;
+}
+
+main {
+  height: 100%;
+  padding-bottom: 2em;
+}
+
+footer {
+  background-color:#d3d3d3;
   text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+  height: 4em;
+  padding-top: 2em;
 }
 </style>
