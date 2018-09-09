@@ -2,7 +2,7 @@
 ## Technologies used
 Backend: Java, Hibernate, Liquibase
 
-Fronted: VueJs, Vue-CLI
+Fronted: VueJs, Vue-CLI, Element UI
 
 ## Requirements
 ### Customer
@@ -12,7 +12,7 @@ Fronted: VueJs, Vue-CLI
 4. General information like name and contact details.
 
 ### Editability
-1. Filter the list of customers.
+1. Filter the list of customers. (I only implemted a simple filter on the status)
 2. Sort the list of customers
 3. Click on a customer in the list to view their details
 4. Change their status.
@@ -25,3 +25,8 @@ You can run `maven install` and then start the jar by using `java -jar propeller
 
 ## Out of scope
 As I had to work through the weekend I hardly had time for this assessment. I am aware that there are no frontend tests and that there are only a view tests in the backend. However I thought it would be nice to have an application meeting the requirements so I focused on functionality and not on tests.
+
+## Next steps
+
+1. Write frontend tests.
+2. I would like to split the 2 frontend views into smaller components e.g. a notes component.

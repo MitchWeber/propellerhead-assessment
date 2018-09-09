@@ -101,7 +101,7 @@ import axios from "axios";
 import { Notification } from "element-ui";
 import CustomerDetails from "../model/CustomerDetails";
 import Note from "../model/Note";
-import { CustomerStatus } from "../model/CustomerStatus";
+import CustomerStatus from "../model/CustomerStatus";
 
 @Component
 export default class CustomerDetailsView extends Vue {

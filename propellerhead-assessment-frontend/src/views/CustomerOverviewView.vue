@@ -2,7 +2,11 @@
     <el-table :data="getCustomers" style="width: 100%">
         <el-table-column sortable prop="id" label="Id"></el-table-column>
         <el-table-column sortable prop="name" label="Name"></el-table-column>
-        <el-table-column sortable prop="status" label="Status"></el-table-column>
+        <el-table-column sortable 
+                         prop="status" 
+                         :filters="statusFilter"
+                         :filter-method="filterTag" 
+                         label="Status"></el-table-column>
         <el-table-column sortable prop="created" label="Date"></el-table-column>
         <el-table-column prop="link.self" label="">
           <template slot-scope="scope">
@@ -16,6 +20,8 @@
 import { Component, Vue } from "vue-property-decorator";
 import axios from "axios";
 import CustomerExcerpt from "../model/CustomerExcerpt";
+import CustomerStatus from "../model/CustomerStatus";
+import { Row } from "element-ui";
 
 @Component
 export default class CustomerOverviewView extends Vue {
@@ -23,6 +29,18 @@ export default class CustomerOverviewView extends Vue {
 
   get getCustomers() {
     return this.customers;
+  }
+
+  filterTag(value: string, row: any) {
+    return row.status === value;
+  }
+
+  get statusFilter(): Array<Object> {
+    const filters = Array<Object>();
+    for (status in CustomerStatus) {
+      filters.push({ text: CustomerStatus[status], value: status });
+    }
+    return filters;
   }
 
   created() {
