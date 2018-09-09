@@ -26,6 +26,12 @@ You can run `maven install` and then start the jar by using `java -jar propeller
 ## Out of scope
 As I had to work through the weekend I hardly had time for this assessment. I am aware that there are no frontend tests and that there are only a view tests in the backend. However I thought it would be nice to have an application meeting the requirements so I focused on functionality and not on tests.
 
+I only implemented a simple filter for the status. First I was thinking of building a search for the table but as time was critical I just did the filter on the status. Probably a good filter would be a range filter on the created column. 
+
+There is no pagination on the table. However the usual usecase would be that there are so many customers that you would need pagination or an other style lazy loading from the server (e.g. endless scrolling with fetching data while scrolling).
+
+
+
 ## Next steps
 
 1. Write frontend tests.
