@@ -96,12 +96,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Vue, Prop } from "vue-property-decorator";
 import axios from "axios";
 import { Notification } from "element-ui";
 import CustomerDetails from "../model/CustomerDetails";
+import CustomerExcerpt from "../model/CustomerExcerpt";
 import Note from "../model/Note";
 import CustomerStatus from "../model/CustomerStatus";
+import { Getter } from "vuex-class";
 
 @Component
 export default class CustomerDetailsView extends Vue {
@@ -110,12 +112,13 @@ export default class CustomerDetailsView extends Vue {
   emptyNote: Note = new Note();
   customerStatus: Array<string> = Object.keys(CustomerStatus);
 
+  @Getter getCustomerById;
+
+  @Prop() id: string;
+
   saveCustomerDetails() {
     axios
-      .post(
-        `http://localhost:8080/rest/customer/${this.$route.params.id}`,
-        this.customer
-      )
+      .post(`http://localhost:8080/rest/customer/${this.id}`, this.customer)
       .then(response => {
         this.notifySuccess("Saved");
       })
@@ -126,8 +129,14 @@ export default class CustomerDetailsView extends Vue {
 
   fetchData() {
     this.loading = true;
+    const customerExcerpt: CustomerExcerpt = this.getCustomerById(
+      Number(this.id)
+    );
+
+    console.log(customerExcerpt.linkToSelf);
+
     axios
-      .get(`http://localhost:8080/rest/customer/${this.$route.params.id}`)
+      .get(customerExcerpt.linkToSelf)
       .then(response => {
         const c: CustomerDetails = new CustomerDetails();
         c.id = response.data.id;
@@ -152,7 +161,7 @@ export default class CustomerDetailsView extends Vue {
   addNote() {
     axios
       .post(
-        `http://localhost:8080/rest/customer/${this.$route.params.id}/note`,
+        `http://localhost:8080/rest/customer/${this.id}/note`,
         this.emptyNote
       )
       .then(response => {
@@ -185,9 +194,7 @@ export default class CustomerDetailsView extends Vue {
   editNote(note: Note) {
     axios
       .post(
-        `http://localhost:8080/rest/customer/${this.$route.params.id}/note/${
-          note.id
-        }`,
+        `http://localhost:8080/rest/customer/${this.id}/note/${note.id}`,
         note
       )
       .then(response => {
@@ -199,7 +206,8 @@ export default class CustomerDetailsView extends Vue {
       });
   }
 
-  created() {
+  beforeMount() {
+    console.log("data required");
     this.fetchData();
   }
 }

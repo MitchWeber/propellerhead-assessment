@@ -8,38 +8,44 @@
 	</parent>
 	<artifactId>propellerhead-assessment-frontend</artifactId>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>com.github.eirslett</groupId>
-				<artifactId>frontend-maven-plugin</artifactId>
-				<version>1.6</version>
-				<configuration>
-					<nodeVersion>v10.9.0</nodeVersion>
-					<yarnVersion>v1.9.4</yarnVersion>
-				</configuration>
-				<executions>
-					<execution>
-						<id>install node and yarn</id>
-						<goals>
-							<goal>install-node-and-yarn</goal>
-						</goals>
-						<phase>generate-resources</phase>
-					</execution>
-					<execution>
-						<id>yarn build</id>
-						<goals>
-							<goal>yarn</goal>
-						</goals>
-						<phase>generate-resources</phase>
+	<profiles>
+		<profile>
+			<id>build-frontend</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.github.eirslett</groupId>
+						<artifactId>frontend-maven-plugin</artifactId>
+						<version>1.6</version>
 						<configuration>
-							<arguments>build</arguments>
+							<nodeVersion>v10.9.0</nodeVersion>
+							<yarnVersion>v1.9.4</yarnVersion>
 						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
-
-
+						<executions>
+							<execution>
+								<id>install node and yarn</id>
+								<goals>
+									<goal>install-node-and-yarn</goal>
+								</goals>
+								<phase>generate-resources</phase>
+							</execution>
+							<execution>
+								<id>yarn build</id>
+								<goals>
+									<goal>yarn</goal>
+								</goals>
+								<phase>generate-resources</phase>
+								<configuration>
+									<arguments>build</arguments>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>

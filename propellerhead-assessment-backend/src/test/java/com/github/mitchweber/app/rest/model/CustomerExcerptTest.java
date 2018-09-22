@@ -16,7 +16,11 @@ public class CustomerExcerptTest {
         Customer customer = new Customer(CustomerStatus.PROSPECTIVE, "Test User");
 
         // When
-        CustomerExcerpt customerExcerpt = new CustomerExcerpt(customer);
+        CustomerExcerpt customerExcerpt = new CustomerExcerpt(
+                customer.getId(),
+                customer.getName(),
+                customer.getCreated(),
+                customer.getStatus());
 
         // Then
         assertThat(customerExcerpt.getCreated(), is(customer.getCreated()));
